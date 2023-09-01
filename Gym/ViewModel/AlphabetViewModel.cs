@@ -1,4 +1,6 @@
-﻿namespace Gym.ViewModel
+﻿using Gym.Service;
+
+namespace Gym.ViewModel
 {
     public class AlphabethViewModel: IAlphabethViewModel
     {
@@ -6,11 +8,14 @@
         private List<string> StringsList { get; set; }
 		private List<string> StringsListResponse { get; set; }
         public Action StateHasChenged { get; set; }
-        public AlphabethViewModel()
+		private readonly  IAlphabethStringService _alphabethStringService;
+
+		public AlphabethViewModel(IAlphabethStringService alphabethStringService)
         {
             StringsList = new List<string>();
 			StringsListResponse = new List<string>();
 			CurrentString = string.Empty;
+			_alphabethStringService = alphabethStringService;
 		}
 
         public void AddAlphabethString()
@@ -20,8 +25,7 @@
         }
         public async Task ProcessAlphabethStringAsync()
         {
-            //StringsListResponse = await AlphabethStringService.GetAlphabethString(StringsList);
-            StringsListResponse = StringsList;
+            StringsListResponse = await _alphabethStringService.GetAlphabethStringAsync(StringsList);            
             StateHasChenged?.Invoke();
         }
      

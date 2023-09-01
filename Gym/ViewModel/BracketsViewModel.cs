@@ -1,16 +1,21 @@
-﻿namespace Gym.ViewModel
+﻿using Gym.Service;
+
+namespace Gym.ViewModel
 {
     public class BracketsViewModel : IBracketsViewModel
 	{
+		private readonly IBracketsStringService _bracketsStringService;
         public string CurrentString { get; set; }
-        private List<string> StringsList { get; set; }
+
+		private List<string> StringsList { get; set; }
 		private List<string> StringsListResponse { get; set; }
         public Action StateHasChenged { get; set; }
-        public BracketsViewModel()
+        public BracketsViewModel(IBracketsStringService bracketsStringService)
         {
             StringsList = new List<string>();
 			StringsListResponse = new List<string>();
 			CurrentString = string.Empty;
+            _bracketsStringService = bracketsStringService;
 		}
 
         public void AddBracketsString()
@@ -20,8 +25,7 @@
         }
         public async Task ProcessBracketsStringAsync()
         {
-            //StringsListResponse = await BracketsStringService.GetBracketsString(StringsList);
-            StringsListResponse = StringsList;
+            StringsListResponse = await _bracketsStringService.GetBracketsStringAsync(StringsList);            
             StateHasChenged?.Invoke();
         }
      
