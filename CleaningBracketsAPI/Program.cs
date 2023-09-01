@@ -21,4 +21,12 @@ app.MapPost("/cleanbrackets", async (List<string> inputString) =>
 	var bracketsCleaner = new BracketsCleaner();
 	return await bracketsCleaner.ProcessStringAsync(inputString);	
 });
+
+app.MapPost("/cleanpairs-en", async (List<string> inputString) =>
+{
+	await Console.Out.WriteLineAsync(string.Join("\n", inputString));
+	var pairsEnCleaner = new PairsEnCleaner();
+	return await pairsEnCleaner.ProcessStringAsync(inputString);
+});
+
 app.Run();
