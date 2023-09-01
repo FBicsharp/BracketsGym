@@ -12,18 +12,12 @@ builder.Services.AddCors(policy =>
 	);
 });
 
-#if DEBUG
+
 builder.Services.AddEndpointsApiExplorer();
-	builder.Services.AddSwaggerGen();
-#endif
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
-#if DEBUG
-	app.UseSwagger();
-	app.UseSwaggerUI();
-#endif
-
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 

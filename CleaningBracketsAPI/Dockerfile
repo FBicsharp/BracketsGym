@@ -1,27 +1,18 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
-FROM mcr.microsoft.com/dotnet/sdk:6.0  as build-env
-WORKDIR /app
-
-COPY *.csproj ./
-RUN dotnet restore
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /App
+EXPOSE 5000
+EXPOSE 5001
 
 COPY . ./
+RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-#COPY ["CleaningBracketsAPI.Test/CleaningBracketsAPI.Test.csproj", "CleaningBracketsAPI.Test/"]
-#RUN dotnet restore "CleaningBracketsAPI.Test/CleaningBracketsAPI.Test.csproj"
-#COPY . .
-#WORKDIR "/src/CleaningBracketsAPI.Test"
-#RUN dotnet build "CleaningBracketsAPI.Test.csproj" -c Release -o /app/testbuild
-#
-## Esegui i test
-#RUN dotnet test "CleaningBracketsAPI.Test/CleaningBracketsAPI.Test.csproj" --logger:trx
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CleaningBracketsAPI.dll"]
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /App
+COPY --from=build-env /App/out .
+ENTRYPOINT ["dotnet","CleaningBracketsAPI.dll"]
+
+# docker build -t fbicsharp/cleaningbracketsapi:V0.1 .
+# docker run -p 5000:80 fbicsharp/cleaningbracketsapi:V0.1
+# docker push fbicsharp/cleaningbracketsapi:V0.1

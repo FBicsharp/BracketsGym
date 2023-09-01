@@ -1,0 +1,17 @@
+services:
+  stringgymapp:
+    build: ./Gym/
+    ports:
+      - "33000:80"
+    depends_on:
+      - stringgymapi
+
+  stringgymapi:
+    build: ./CleaningBracketsAPI/
+    ports:
+      - "5000:80"
+    # depends_on:
+    #   - StringGymDB
+
+  #StringGymDB:
+    
