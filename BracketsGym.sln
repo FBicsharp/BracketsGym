@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.33906.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleaningBracketsAPI", "CleaningBracketsAPI\CleaningBracketsAPI.csproj", "{840821F1-4AF8-4D06-9150-3365B19EFD84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleaningBracketsAPI", "CleaningBracketsAPI\CleaningBracketsAPI.csproj", "{840821F1-4AF8-4D06-9150-3365B19EFD84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleaningBracketsAPI.Test", "CleaningBracketsAPI.Test\CleaningBracketsAPI.Test.csproj", "{873FED26-CFA8-49FB-9426-11C4D00823EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleaningBracketsAPI.Test", "CleaningBracketsAPI.Test\CleaningBracketsAPI.Test.csproj", "{873FED26-CFA8-49FB-9426-11C4D00823EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gym", "Gym\Gym.csproj", "{3C59E478-E27E-4803-B399-499FADB8FBBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{873FED26-CFA8-49FB-9426-11C4D00823EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{873FED26-CFA8-49FB-9426-11C4D00823EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{873FED26-CFA8-49FB-9426-11C4D00823EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C59E478-E27E-4803-B399-499FADB8FBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C59E478-E27E-4803-B399-499FADB8FBBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C59E478-E27E-4803-B399-499FADB8FBBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C59E478-E27E-4803-B399-499FADB8FBBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

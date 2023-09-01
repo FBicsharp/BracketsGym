@@ -1,0 +1,63 @@
+﻿@page "/pairs-en"
+@inject IAlphabethViewModel mvvm
+<PageTitle>pairs-en</PageTitle>
+
+<h1>CLEANING ALPHABETH</h1>
+
+<div class="container text-center p-3">
+	<div class="row g-3 align-items-center">
+		<div class="col-auto">
+			<label for="input-text-Alphabeth" class="form-label">INPUT</label>
+		</div>
+		<div class="col-auto">
+			<input id="input-text-Alphabeth" class="form-control" placeholder="(your_expression)" value="@mvvm.CurrentString"
+			@onchange="@((ChangeEventArgs __e) => mvvm.CurrentString = __e?.Value?.ToString())" @onkeyup="@Enter">
+			</input>
+		</div>
+		<div class="col-auto">
+			<button class="btn btn-success" @onclick="mvvm.AddAlphabethString">Add</button>
+			<button class="btn btn-warning" @onclick="mvvm.ProcessAlphabethStringAsync">Process</button>
+
+		</div>
+
+	</div>
+</div>
+<div class="container text-center p-3">
+	<div class="d-flex justify-content-start">
+
+		
+						
+		<ol class="list-group  list-group-numbered p-1 " >
+			<li class="list-group-item list-group-item-primary">Inputs</li>
+			@foreach (var item in mvvm.GetAlphabethRequestString())
+			{
+				<li class="list-group-item disabled">@item</li>
+			}
+		</ol>
+		<ol class="list-group list-group-numbered  p-1">
+			<li class="list-group-item list-group-item-primary">Output</li>
+			@foreach (var item in mvvm.GetAlphabethResponseString())
+			{
+				<li class="list-group-item disabled">@item</li>
+			}
+		</ol>
+	</div>
+</div>
+
+
+
+@code {
+
+	protected override void OnInitialized()
+	{
+		mvvm.StateHasChenged = StateHasChanged;
+		base.OnInitialized();
+	}
+	public void Enter(KeyboardEventArgs e)
+	{
+		if (e.Code == "Enter" || e.Code == "NumpadEnter")
+		{
+			mvvm.AddAlphabethString();
+		}
+	}
+}

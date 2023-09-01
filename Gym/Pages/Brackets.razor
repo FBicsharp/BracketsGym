@@ -1,0 +1,63 @@
+﻿@page "/"
+@page "/brackets"
+@inject IBracketsViewModel mvvm
+
+<PageTitle>brackets</PageTitle>
+<h1>CLEANING BRACKETS</h1>
+
+<div class="container text-center p-3">
+	<div class="row g-3 align-items-center">
+		<div class="col-auto">
+			<label for="input-text-brackets" class="form-label">INPUT</label>
+		</div>
+		<div class="col-auto">
+			<input id="input-text-brackets" class="form-control" placeholder="(your_expression)" value="@mvvm.CurrentString"
+			@onchange="@((ChangeEventArgs __e) => mvvm.CurrentString = __e?.Value?.ToString())"  @onkeyup="@Enter" 
+			>
+			</input>
+		</div>
+		<div class="col-auto">
+			<button class="btn btn-success" @onclick="mvvm.AddBracketsString">Add</button>
+			<button class="btn btn-warning" @onclick="mvvm.ProcessBracketsStringAsync">Process</button>
+
+		</div>
+
+	</div>
+</div>
+<div class="container text-center p-3">
+	<div class="d-flex justify-content-start">
+		
+		<ul class="list-group p-1">
+			<li class="list-group-item list-group-item-primary">Inputs</li>
+			@foreach (var item in mvvm.GetBracketsRequestString())
+			{
+				<li class="list-group-item disabled">@item</li>
+			}
+		</ul>
+		<ul class="list-group  p-1">
+			<li class="list-group-item list-group-item-primary">Output</li>
+			@foreach (var item in mvvm.GetBracketsResponseString())
+			{
+				<li class="list-group-item disabled">@item</li>
+			}
+		</ul>
+	</div>
+</div>
+
+
+
+@code {
+
+	protected override void OnInitialized()
+	{
+		mvvm.StateHasChenged = StateHasChanged;
+		base.OnInitialized();
+	}
+	public void Enter(KeyboardEventArgs e)
+	{
+		if (e.Code == "Enter" || e.Code == "NumpadEnter")
+		{
+			mvvm.AddBracketsString();
+		}
+	}
+}
