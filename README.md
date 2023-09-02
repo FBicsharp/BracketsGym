@@ -65,3 +65,10 @@ trattandosi di parople assumo che le stringhe non supereranno mai i 45 caratteri
 se cosi non fosse , devrebbero essere generati più pdf , inoltre la struttura impone un limita sul numero di parola stampabi pari alla lunghezza della paroila ossia 1< x <=45 considerando che la spirale ha 4 lati  il numero di spirali sarà quini massimo a 45/4  
 
 le parole della stessa lunghewzza devono essere raggruppate per lunghezza?
+
+uso un servizio zpl di terze parti che gira in locale [link zpl](https://www.neodynamic.com/products/zpl-printer-web-api-docker/)
+
+
+
+# how to install and run
+# docker compose up -d
