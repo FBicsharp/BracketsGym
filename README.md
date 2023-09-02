@@ -60,3 +60,8 @@ in ogni caso con quest'ultimo si avrebbe un sistema limitato
 
 
 
+# PDF
+trattandosi di parople assumo che le stringhe non supereranno mai i 45 caratteri (la parola più lunga a mondo è di 45 https://www.dictionary.com/e/longest-words-in-the-world/)  devono essere con una lunghezza massima proporzionale alla spiralke in cui si trova,
+se cosi non fosse , devrebbero essere generati più pdf , inoltre la struttura impone un limita sul numero di parola stampabi pari alla lunghezza della paroila ossia 1< x <=45 considerando che la spirale ha 4 lati  il numero di spirali sarà quini massimo a 45/4  
+
+le parole della stessa lunghewzza devono essere raggruppate per lunghezza?

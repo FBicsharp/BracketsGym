@@ -1,8 +1,16 @@
 using CleaningBracketsAPI.Logic;
-using Microsoft.Extensions.Logging;
+using PdfSharp;
+using System.IO;
+using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddTransient<BracketsCleaner>();
+//builder.Services.AddTransient<PairsEnCleaner>();
+builder.Services.AddLogging();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<PdfGenerator_>();
 builder.Services.AddCors(policy =>
 {
 	policy.AddPolicy("CorsPolicy", opt => opt
@@ -42,5 +50,24 @@ app.MapPost("/cleanpairs-en", async (List<string> inputString, HttpContext conte
 	var pairsEnCleaner = new PairsEnCleaner();
 	return await pairsEnCleaner.ProcessStringAsync(inputString);
 });
+
+app.MapPost("/topdf", (List<string> inputString, HttpContext context) =>
+{
+
+
+
+	var pdfGenerator = context.RequestServices.GetRequiredService<PdfGenerator_>();
+	var bytes = pdfGenerator.GeneratePdf(inputString);
+	if (bytes.Count() == 0)
+		return Results.BadRequest();
+	//assgno la stinga in bytes
+	using (var stream = new MemoryStream())
+	{
+		return Results.File(bytes, "application/pdf", "generated.pdf");
+	}
+});
+
+
+
 
 app.Run();
