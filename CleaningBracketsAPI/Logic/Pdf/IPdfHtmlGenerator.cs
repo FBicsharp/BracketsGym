@@ -3,11 +3,11 @@
 	public interface IPdfHtmlGenerator
 	{
 		/// <summary>
-		/// Generate a HTML table from a matrix of char
+		/// Generate a HTML table from a matrix of CharMap
 		/// </summary>
 		/// <param name="matrix"></param>
 		/// <returns>string as html content</returns>
-		string GenerateHTMLTableFromMatirx(char[,] matrix);		
+		string GenerateHTMLTableFromMatirx(CharMap[,] matrix);		
 
 	}
 }

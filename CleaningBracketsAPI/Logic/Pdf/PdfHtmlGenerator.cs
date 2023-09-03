@@ -13,7 +13,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
         {
             this.logger = logger;
         }
-		public string GenerateHTMLTableFromMatirx(char[,] matrix)
+		public string GenerateHTMLTableFromMatirx(CharMap[,] matrix)
 		{
 			int numRows = matrix.GetLength(0);
 			int numCols = matrix.GetLength(1);
@@ -25,6 +25,11 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			htmlTable.AppendLine("<style>");
 			htmlTable.AppendLine("table { border-collapse: collapse;\r\n }\r\n");
 			htmlTable.AppendLine("td {\r\nwidth: 30px;\r\nheight: 30px;\r\ntext-align: center;\r\nvertical-align: middle;\r\ntransform-origin: center center;\r\n \r\npadding: 7px 7px 7px 7px;\r\n}\r\n");
+
+			htmlTable.AppendLine(".round-none {\r\n border-style: none none none none;\r\n}\r\n");
+			htmlTable.AppendLine(".round-starting {\r\n border-style: dashed;\r\n}\r\n");
+			htmlTable.AppendLine(".round-central {\r\n border-style: dashed; \r\n}\r\n");
+			htmlTable.AppendLine(".round-ending {\r\n border-style: dashed; \r\n}\r\n");
 			htmlTable.AppendLine(".rotate-90 {\r\ntransform: rotate(90deg);\r\n}\r\n");
 			htmlTable.AppendLine(".rotate-180 {\r\ntransform: rotate(180deg);\r\n}\r\n");
 			htmlTable.AppendLine(".rotate-270 {\r\ntransform: rotate(270deg);\r\n}\r\n");
@@ -42,13 +47,16 @@ namespace CleaningBracketsAPI.Logic.Pdf
 				htmlTable.AppendLine("<tr>");
 
 				for (int col = 0; col < numCols; col++)
-				{
-					char cellContent = matrix[row, col];
-					//trovo il livello della matrice per capire di quanti gradi devo ruotare il carattere
-					int level = 0;
-					int degrees = level * 90;
-					string rotationClass = $"class=\"rotate-{degrees} \"";					
-					htmlTable.AppendFormat($"<td {rotationClass} >{cellContent}</td>");					
+				{	
+					string styles = $"class=\" ";
+					if (matrix[row, col].OrientationDegree > 0)
+						styles += $"rotate-{matrix[row, col].OrientationDegree} ";
+					
+					if (matrix[row, col].IsRounded)//dipende anche dal lato in cui sono
+						styles += $"round-{matrix[row, col].RoundedType.ToString().ToLower()} ";
+					styles+="\"";
+
+					htmlTable.AppendFormat($"<td {styles} >{matrix[row, col].Symbol}</td>");					
 				}
 				htmlTable.AppendLine("</tr>");
 			}
