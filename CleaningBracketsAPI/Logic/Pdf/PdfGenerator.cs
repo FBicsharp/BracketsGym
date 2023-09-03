@@ -1,49 +1,49 @@
-﻿using Microsoft.AspNetCore.Components.RenderTree;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System.Text;
-
-
-
+﻿
 namespace CleaningBracketsAPI.Logic.Pdf
 {
-    public class PdfGenerator
+    public class PdfGenerator : IPdfGenerator
     {
-        private readonly ILogger<PdfGenerator> logger;
-        private readonly IHttpContextAccessor context;
+        private readonly ILogger<PdfGenerator> _logger;
+        private readonly IHttpContextAccessor _context;
 		private readonly IPdfHtmlGenerator _htmlGenerator;
+		private readonly IStringMapsGenerator _stringMapsGenerator;
 
-		public PdfGenerator(ILogger<PdfGenerator> logger, IHttpContextAccessor context, IPdfHtmlGenerator htmlGenerator)
+		public PdfGenerator(ILogger<PdfGenerator> logger, IHttpContextAccessor context, IPdfHtmlGenerator htmlGenerator, IStringMapsGenerator stringMapsGenerator)
         {
-            this.logger = logger;
-            this.context = context;
+            _logger = logger;
+            _context = context;
             _htmlGenerator = htmlGenerator;
-        }
-
-        /// <summary>
-        /// Remove the external letter if matching
-        /// </summary>
-        /// <param name="strings"></param>
-        /// <returns></returns>
-        public MemoryStream GeneratePdf(List<string> inputString)
-        {
-            var endpoint = context.HttpContext.Request.Path;
-            var ipAddress = context.HttpContext.Connection.RemoteIpAddress;
-            logger.LogInformation($"Request to endpoint {endpoint} from IP {ipAddress}");
-            var html = FormatString(inputString);
-
-			
-			var Renderer = new ChromePdfRenderer();
-			Renderer.RenderingOptions.InputEncoding = Encoding.UTF8;
-			var Pdf = Renderer.RenderHtmlAsPdf(html);					
-            return Pdf.Stream;
-        }
-
-        private string FormatString(List<string> inputString)
-        {
-            var longhestString = inputString.Max(x => x.Length);
-            var contentMaps = new StringMapsGenerator(longhestString, longhestString);
-			return _htmlGenerator.GenerateHTMLTableFromMatirx(contentMaps.Generate(inputString));
+			_stringMapsGenerator = stringMapsGenerator;
 		}
+
+        public byte[] GeneratePdfAndRetriveByte(List<string> inputString)
+        {
+			var endpoint = _context.HttpContext?.Request?.Path;
+			var ipAddress = _context.HttpContext?.Connection?.RemoteIpAddress;
+			_logger.LogInformation($"Request to endpoint {endpoint} from IP {ipAddress}");
+			var longhestString = inputString.Max(x => x.Length);
+			var PdfStream = new byte[0];
+			try
+			{
+				_stringMapsGenerator.Initialize(longhestString, longhestString);
+				var html = _htmlGenerator.GenerateHTMLTableFromMatirx(_stringMapsGenerator.Generate(inputString));
+				var htmlToPdf = new SelectPdf.HtmlToPdf();
+				htmlToPdf.Options.PdfPageSize = SelectPdf.PdfPageSize.A4;
+				var pdf = htmlToPdf.ConvertHtmlString(html);
+				PdfStream = pdf.Save();
+				pdf.Close();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError(ex, "Error during pdf generation");
+			}
+
+            return PdfStream;
+		}
+		public async Task<byte[]> GeneratePdfAndRetriveByteAsync(List<string> inputString)
+			=> await Task.Factory.StartNew(() => GeneratePdfAndRetriveByte(inputString));
+
+
 	}
 }
 

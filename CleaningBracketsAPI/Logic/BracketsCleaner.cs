@@ -1,16 +1,22 @@
-﻿using System.Text;
+﻿
 
 namespace CleaningBracketsAPI.Logic
 {
-	public class BracketsCleaner
+	public class BracketsCleaner : IBracketsCleaner
 	{
+		private readonly ILogger<BracketsCleaner> _logger;
+		private readonly IHttpContextAccessor _context;
 
-		/// <summary>
-		/// Remove extra brackets from string
-		/// </summary>
-		/// <param name="strings"></param>
-		/// <returns></returns>
-		public IEnumerable<string> ProcessString(IEnumerable<string> inputString, string brackets = "()")
+		public BracketsCleaner(ILogger<BracketsCleaner> logger, IHttpContextAccessor context)
+		{
+			_logger = logger;
+			_context = context;
+			var endpoint = _context.HttpContext?.Request?.Path;
+			var ipAddress = _context.HttpContext?.Connection?.RemoteIpAddress;
+			logger.LogInformation($"Request to endpoint {endpoint} from IP {ipAddress}\n ");
+		}
+        
+        public IEnumerable<string> ProcessString(IEnumerable<string> inputString, string brackets = "()")
 		{
 
 			if (brackets.Count() < 2)
@@ -24,13 +30,7 @@ namespace CleaningBracketsAPI.Logic
 
 		public async Task<IEnumerable<string>> ProcessStringAsync(IEnumerable<string> strings, string brackets = "()")
 			=> await Task.FromResult(ProcessString(strings, brackets));
-				
-		/// <summary>
-		/// Remove the external brackets if they are extra until the string has balanced brackets
-		/// </summary>
-		/// <param name="inputString"></param>
-		/// <param name="brackets"></param>
-		/// <returns></returns>
+		
 		public string RemoveExtenalExtraBrackets(string inputString, string brackets)
 		{
 			
@@ -50,12 +50,6 @@ namespace CleaningBracketsAPI.Logic
 			return result;
 		}
 
-		/// <summary>
-		/// Check if the brackets are balanced in the string and return true if they are balanced
-		/// </summary>
-		/// <param name="inputString"></param>
-		/// <param name="brackets"></param>
-		/// <returns></returns>
 		public bool IsBracketsBalanced(string inputString, string brackets)
 		{
 			var result = inputString;

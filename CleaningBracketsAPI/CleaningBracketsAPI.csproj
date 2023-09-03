@@ -9,19 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Logic\ZPL\CustomFont.cs" />
-    <Compile Remove="Logic\ZPL\ZPLPrinterWebAPI.Controllers.ZPLPrinterController.cs" />
-    <Compile Remove="Logic\ZPL\ZPLPrintJob.cs" />
+    <Compile Remove="Logic\ZPL\**" />
+    <Content Remove="Logic\ZPL\**" />
+    <EmbeddedResource Remove="Logic\ZPL\**" />
+    <None Remove="Logic\ZPL\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IronPdf" Version="2023.8.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.3" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="23.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Logic\ZPL\" />
   </ItemGroup>
 
 </Project>

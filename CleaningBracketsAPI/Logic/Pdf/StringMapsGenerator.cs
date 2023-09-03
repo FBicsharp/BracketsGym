@@ -2,7 +2,9 @@
 
 namespace CleaningBracketsAPI.Logic.Pdf
 {
-    public class StringMapsGenerator
+	public record CharMap(char Symbol, bool IsRounded, RoundedType RoundedType, short OrientationDegree);
+
+	public class StringMapsGenerator : IStringMapsGenerator
     {        
         int x_Max { get; set; }
         int y_Max { get; set; }
@@ -13,7 +15,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 
         public CharMap[,] Maps { get; set; }
 
-        public StringMapsGenerator(int widthMax_, int heightMax_)
+        public void Initialize(int widthMax_, int heightMax_)
         {
             x_Max = widthMax_+1;
             y_Max = heightMax_+1;
@@ -27,7 +29,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
             }
         }
 
-        public void MapContent(string s1, FaceSide Faceside, bool isRounded )
+        private void MapContent(string s1, FaceSide Faceside, bool isRounded )
         {
             if (Layer > 0 && Layer % 4 == 0)
             {
@@ -72,7 +74,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
             Layer++;
         }
 
-        public string GetStringConent()
+        public string GetStringContent()
         {
             var sb = new StringBuilder();
 
@@ -122,18 +124,10 @@ namespace CleaningBracketsAPI.Logic.Pdf
             }
             return Maps;
         }
-
-
-    }
-    public record CharMap(char Symbol, bool IsRounded, RoundedType RoundedType, short OrientationDegree );
-    public enum RoundedType
-	{
-        None,
-        Starting,
-		Central,
-        Ending
+        
 
     }
+    
 
 }
 

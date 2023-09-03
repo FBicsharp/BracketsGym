@@ -1,16 +1,15 @@
-﻿using Microsoft.Extensions.FileSystemGlobbing.Internal;
-using System.Text;
-
+﻿
 namespace CleaningBracketsAPI.Logic
 {
-	public class PairsEnCleaner
+	public class PairsEnCleaner : IPairsEnCleaner
 	{
+
 		string[] defaultPatterns = {
 			"az",
 			"by",
 			"cx",
 			"dw",
-			"iv",
+			"ev",
 			"fu",
 			"gt",
 			"hs",
@@ -20,12 +19,21 @@ namespace CleaningBracketsAPI.Logic
 			"lo",
 			"mn"
 		};
+		private readonly ILogger<PairsEnCleaner> _logger;
 
-		/// <summary>
-		/// Remove the external letter if matching
-		/// </summary>
-		/// <param name="strings"></param>
-		/// <returns></returns>
+		public IHttpContextAccessor _context { get; }
+
+		public PairsEnCleaner(ILogger<PairsEnCleaner> logger, IHttpContextAccessor context)
+		{
+			_logger = logger;
+			_context = context;
+			var endpoint = _context.HttpContext.Request.Path;
+			var ipAddress = _context.HttpContext.Connection.RemoteIpAddress;
+			logger.LogInformation($"Request to endpoint {endpoint} from IP {ipAddress}\n ");
+		}
+
+
+		
 		public IEnumerable<string> ProcessString(IEnumerable<string> inputString, string[] patterns = null)
 		{
 
@@ -44,20 +52,10 @@ namespace CleaningBracketsAPI.Logic
 
 			return result;
 		}
-		/// <summary>
-		/// Remove the external letter if matching
-		/// </summary>
-		/// <param name="strings"></param>
-		/// <returns></returns>
+		
 		public async Task<IEnumerable<string>> ProcessStringAsync(IEnumerable<string> strings, string[] patterns = null)
 			=> await Task.FromResult(ProcessString(strings, patterns));
-
-		/// <summary>
-		/// Remove the external letter if matching
-		/// </summary>
-		/// <param name="inputString"></param>
-		/// <param name="pattern"></param>
-		/// <returns></returns>
+				
 		public string RemoveExtenalCharacter(string inputString, string pattern)
 		{
 			var result = inputString;
