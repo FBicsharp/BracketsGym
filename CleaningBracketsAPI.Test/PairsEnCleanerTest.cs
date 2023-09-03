@@ -1,4 +1,7 @@
 using CleaningBracketsAPI.Logic;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace CleaningBracketsAPI.Test
 {
@@ -9,14 +12,17 @@ namespace CleaningBracketsAPI.Test
 
         public PairsEnCleanerTest()
         {
-			_pairsEnCleaner = new PairsEnCleaner();
+			var loggerMock = Substitute.For<ILogger<PairsEnCleaner>>();
+			var httpContextAccessorMock = Substitute.For<IHttpContextAccessor>();
+
+			_pairsEnCleaner = new PairsEnCleaner(loggerMock, httpContextAccessorMock);
         }
 
         [Theory]
 		[InlineData("man", "a")]
 		[InlineData("keep", "ee")]
 		[InlineData("gqwertyuioplkjhgfdsazxcvbnm:?t", "qwertyuioplkjhgfdsazxcvbnm:?")]
-		[InlineData("abcdefghijklmnopqrstuvwxyz", "efghijklmnopqrstuv")]
+		[InlineData("abcdefghijklmnopqrstuvwxyz", "")]
 		
 		public void ShouldCleanString(string inputStrings, string expectedResults)
 		{

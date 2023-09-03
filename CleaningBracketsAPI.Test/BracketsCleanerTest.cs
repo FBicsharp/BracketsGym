@@ -1,4 +1,8 @@
 using CleaningBracketsAPI.Logic;
+using CleaningBracketsAPI.Logic.Pdf;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace CleaningBracketsAPI.Test
 {
@@ -9,7 +13,9 @@ namespace CleaningBracketsAPI.Test
 
         public BracketsCleanerTest()
         {
-			_bracketsCleaner = new BracketsCleaner();
+			var loggerMock = Substitute.For<ILogger<BracketsCleaner>>();
+			var httpContextAccessorMock = Substitute.For<IHttpContextAccessor>();	
+			_bracketsCleaner = new BracketsCleaner(loggerMock, httpContextAccessorMock);
 			_brackets= "()";
         }
 
