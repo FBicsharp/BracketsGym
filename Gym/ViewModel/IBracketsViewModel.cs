@@ -4,10 +4,11 @@
 	{
 		string CurrentString { get; set; }
 		Action StateHasChenged { get; set; }
-        void AddBracketsString();
+		Task AddBracketsStringAsync();
         Task ProcessBracketsStringAsync();
         List<string> GetBracketsRequestString();
         List<string> GetBracketsResponseString();
-        
-    }
+		void ClearAll();
+
+	}
 }

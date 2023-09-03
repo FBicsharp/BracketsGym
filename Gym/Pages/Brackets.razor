@@ -11,14 +11,15 @@
 			<label for="input-text-brackets" class="form-label">INPUT</label>
 		</div>
 		<div class="col-auto">
-			<input id="input-text-brackets" class="form-control" placeholder="(your_expression)" value="@mvvm.CurrentString"
+			<input id="input-text-brackets" class="form-control" placeholder="your text" value="@mvvm.CurrentString"
 			@onchange="@((ChangeEventArgs __e) => mvvm.CurrentString = __e?.Value?.ToString())"  @onkeyup="@Enter" 
 			>
 			</input>
 		</div>
 		<div class="col-auto">
-			<button class="btn btn-success" @onclick="mvvm.AddBracketsString">Add</button>
-			<button class="btn btn-warning" @onclick="mvvm.ProcessBracketsStringAsync">Process</button>
+			<button class="btn btn-primary oi oi-plus " @onclick="mvvm.AddBracketsStringAsync">Add</button>
+			<button class="btn btn-success oi oi-loop-circular " @onclick="mvvm.ProcessBracketsStringAsync">Process</button>
+			<button class="btn btn-danger oi oi-trash" @onclick="mvvm.ClearAll">Clear</button>
 
 		</div>
 
@@ -53,11 +54,11 @@
 		mvvm.StateHasChenged = StateHasChanged;
 		base.OnInitialized();
 	}
-	public void Enter(KeyboardEventArgs e)
+	public async Task Enter(KeyboardEventArgs e)
 	{
 		if (e.Code == "Enter" || e.Code == "NumpadEnter")
 		{
-			mvvm.AddBracketsString();
+			await mvvm.AddBracketsStringAsync();
 		}
 	}
 }

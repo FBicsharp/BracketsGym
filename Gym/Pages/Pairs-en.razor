@@ -1,5 +1,6 @@
 ﻿@page "/pairs-en"
 @inject IAlphabethViewModel mvvm
+@inject IJSRuntime JS
 <PageTitle>pairs-en</PageTitle>
 
 <h1>CLEANING ALPHABETH</h1>
@@ -10,39 +11,41 @@
 			<label for="input-text-Alphabeth" class="form-label">INPUT</label>
 		</div>
 		<div class="col-auto">
-			<input id="input-text-Alphabeth" class="form-control" placeholder="(your_expression)" value="@mvvm.CurrentString"
+			<input id="input-text-Alphabeth" class="form-control" placeholder="your text" value="@mvvm.CurrentString"
 			@onchange="@((ChangeEventArgs __e) => mvvm.CurrentString = __e?.Value?.ToString())" @onkeyup="@Enter">
 			</input>
 		</div>
 		<div class="col-auto">
-			<button class="btn btn-success" @onclick="mvvm.AddAlphabethString">Add</button>
-			<button class="btn btn-warning" @onclick="mvvm.ProcessAlphabethStringAsync">Process</button>
-
+			<button class="btn btn-primary oi oi-plus " @onclick="mvvm.AddAlphabethString">Add</button>
+			<button class="btn btn-success oi oi-loop-circular " @onclick="mvvm.ProcessAlphabethStringAsync">Process</button>
+			<button class="btn btn-danger oi oi-trash" @onclick="mvvm.ClearAll">Clear</button>
+			<button class="btn btn-warning oi oi-file " @onclick="mvvm.GeneratePDFAsync">PDF</button>
 		</div>
-
 	</div>
 </div>
+
 <div class="container text-center p-3">
 	<div class="d-flex justify-content-start">
 
-		
-						
-		<ol class="list-group  list-group-numbered p-1 " >
+
+
+		<ol class="list-group   p-1 ">
 			<li class="list-group-item list-group-item-primary">Inputs</li>
 			@foreach (var item in mvvm.GetAlphabethRequestString())
 			{
 				<li class="list-group-item disabled">@item</li>
 			}
 		</ol>
-		<ol class="list-group list-group-numbered  p-1">
-			<li class="list-group-item list-group-item-primary">Output</li>
+	<ol class="list-group  p-1">
+		<li class="list-group-item list-group-item-primary">Output</li>
 			@foreach (var item in mvvm.GetAlphabethResponseString())
 			{
-				<li class="list-group-item disabled">@item</li>
+			<li class="list-group-item disabled">@item</li>
 			}
-		</ol>
-	</div>
+	</ol>
 </div>
+</div>
+
 
 
 
@@ -51,6 +54,7 @@
 	protected override void OnInitialized()
 	{
 		mvvm.StateHasChenged = StateHasChanged;
+		mvvm.JS = JS;
 		base.OnInitialized();
 	}
 	public void Enter(KeyboardEventArgs e)
@@ -60,4 +64,5 @@
 			mvvm.AddAlphabethString();
 		}
 	}
+
 }

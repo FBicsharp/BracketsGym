@@ -18,19 +18,26 @@ namespace Gym.ViewModel
             _bracketsStringService = bracketsStringService;
 		}
 
-        public void AddBracketsString()
+        public async Task AddBracketsStringAsync()
         {
             StringsList.Add(CurrentString);
-            StateHasChenged?.Invoke();
+            await ProcessBracketsStringAsync();
+			StateHasChenged?.Invoke();
         }
         public async Task ProcessBracketsStringAsync()
         {
             StringsListResponse = await _bracketsStringService.GetBracketsStringAsync(StringsList);            
             StateHasChenged?.Invoke();
         }
-     
+		public void ClearAll()
+		{
+			StringsList.Clear();
+			StringsListResponse.Clear();
+			StateHasChenged?.Invoke();
+		}
 
-        public List<string> GetBracketsRequestString() => StringsList;
+
+		public List<string> GetBracketsRequestString() => StringsList;
 
         public List<string> GetBracketsResponseString() => StringsListResponse;
 

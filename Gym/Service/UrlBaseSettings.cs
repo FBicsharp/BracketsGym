@@ -8,7 +8,9 @@ namespace Gym.Service
         public string BaseAddress { get; set; }
 		public string CleaningBrackets { get; set; }
         public string CleaningPairsEn { get; set; }
+        public string PdfGenerator { get; set; }
 		
+
 
 	}
 }
