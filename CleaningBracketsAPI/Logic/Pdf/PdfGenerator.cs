@@ -40,7 +40,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 
         private string FormatString(List<string> inputString)
         {
-            var longhestString = inputString.OrderByDescending(x => x.Count()).First().Length + 1;
+            var longhestString = inputString.Max(x => x.Length);
             var contentMaps = new StringMapsGenerator(longhestString, longhestString);
 			return _htmlGenerator.GenerateHTMLTableFromMatirx(contentMaps.Generate(inputString));
 		}

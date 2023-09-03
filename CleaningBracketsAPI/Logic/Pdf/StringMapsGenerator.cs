@@ -15,8 +15,8 @@ namespace CleaningBracketsAPI.Logic.Pdf
 
         public StringMapsGenerator(int widthMax_, int heightMax_)
         {
-            x_Max = widthMax_;
-            y_Max = heightMax_;
+            x_Max = widthMax_+1;
+            y_Max = heightMax_+1;
             Maps = new CharMap[x_Max, y_Max];
             for (int y = 0; y < y_Max; y++)
             {
