@@ -21,10 +21,12 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			var endpoint = _context.HttpContext?.Request?.Path;
 			var ipAddress = _context.HttpContext?.Connection?.RemoteIpAddress;
 			_logger.LogInformation($"Request to endpoint {endpoint} from IP {ipAddress}");
-			var longhestString = inputString.Max(x => x.Length);
 			var PdfStream = new byte[0];
 			try
 			{
+				 ResizeEquelsStingLenght(ref inputString);
+				var longhestString = inputString.Max(x => x.Length);
+
 				_stringMapsGenerator.Initialize(longhestString, longhestString);
 				var html = _htmlGenerator.GenerateHTMLTableFromMatirx(_stringMapsGenerator.Generate(inputString));
 				var htmlToPdf = new SelectPdf.HtmlToPdf();
@@ -42,6 +44,26 @@ namespace CleaningBracketsAPI.Logic.Pdf
 		}
 		public async Task<byte[]> GeneratePdfAndRetriveByteAsync(List<string> inputString)
 			=> await Task.Factory.StartNew(() => GeneratePdfAndRetriveByte(inputString));
+
+		/// <summary>
+		/// Modify the length of strings by adding a space character to strings with equal lengths.
+		/// </summary>
+		/// <param name="inputStrings"></param>
+		public void ResizeEquelsStingLenght(ref List<string> inputStrings)
+		{
+			inputStrings = inputStrings.OrderByDescending(x => x.Length).ToList();
+			if (inputStrings.Count() == 1)
+				return;
+
+			for (int i = 1; i < inputStrings.Count(); i++)
+			{
+				if (inputStrings[i].Length == inputStrings[i - 1].Length)
+				{
+					inputStrings[i] = " " + inputStrings[i];
+					ResizeEquelsStingLenght(ref inputStrings);
+				}
+			}
+		}
 
 
 	}

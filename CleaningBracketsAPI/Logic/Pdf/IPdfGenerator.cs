@@ -2,7 +2,7 @@
 {
 	public interface IPdfGenerator
 	{
-		byte[] GeneratePdfAndRetriveByte(List<string> inputString);
+		byte[] GeneratePdfAndRetriveByte(List<string> inputString);	
 		Task<byte[]> GeneratePdfAndRetriveByteAsync(List<string> inputString);
 	}
 }
