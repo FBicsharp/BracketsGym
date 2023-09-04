@@ -23,6 +23,8 @@ namespace Gym.ViewModel
 
         public void AddAlphabethString()
         {
+            if (string.IsNullOrEmpty(CurrentString.Trim()))
+                return;
             StringsList.Add(CurrentString);
             ProcessAlphabethStringAsync();
 			StateHasChenged?.Invoke();

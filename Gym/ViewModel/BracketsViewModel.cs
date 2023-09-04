@@ -20,7 +20,9 @@ namespace Gym.ViewModel
 
         public async Task AddBracketsStringAsync()
         {
-            StringsList.Add(CurrentString);
+			if (string.IsNullOrEmpty(CurrentString.Trim()))
+				return;
+			StringsList.Add(CurrentString);
             await ProcessBracketsStringAsync();
 			StateHasChenged?.Invoke();
         }
