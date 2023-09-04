@@ -33,7 +33,7 @@ namespace CleaningBracketsAPI.Test
 			//is allready done in constructor
 			//Act			
 			var list = inputStrings.ToList();
-			var result = _pdfGenerator.ResizeEquelsStingLenght(ref list);
+			_pdfGenerator.ResizeEquelsStingLenght(ref list);
 			// Assert
 			Assert.Equal(list, expectedResults);
 		}
