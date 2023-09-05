@@ -140,7 +140,7 @@ if you want to change the port you can change it on docker-compose.yml file and 
 
 # NOTE
 > for the pdf generation i use a not free library that have a watermark on the pdf, if you want to remove it you need to buy a license.
-> I 
+> Unfortunatly this take a few minute to startup response at the first request, becouse i suppose that some license check is performed at the first request.
 
  
 # ARCHITECTURE REVIEW 
