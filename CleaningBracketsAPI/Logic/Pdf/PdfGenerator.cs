@@ -35,16 +35,16 @@ namespace CleaningBracketsAPI.Logic.Pdf
 
 				_stringMapsGenerator.Initialize(longhestString, longhestString);
 				var html = _htmlGenerator.GenerateHTMLTableFromMatirx(_stringMapsGenerator.Generate(inputString));
-				var htmlToPdf = new SelectPdf.HtmlToPdf();
-				htmlToPdf.Options.PdfPageSize = SelectPdf.PdfPageSize.A4;
-				var pdf = htmlToPdf.ConvertHtmlString(html);
-				PdfStream = pdf.Save();
-				pdf.Close();
+				//var htmlToPdf = new SelectPdf.HtmlToPdf();
+				//htmlToPdf.Options.PdfPageSize = SelectPdf.PdfPageSize.A4;
+				//var pdf = htmlToPdf.ConvertHtmlString(html);
+				//PdfStream = pdf.Save();
+				//pdf.Close();
 
 
 
-				//var Renderer = new IronPdf.ChromePdfRenderer().RenderHtmlAsPdf(html);
-				//PdfStream = Renderer.BinaryData;
+				var Renderer = new IronPdf.ChromePdfRenderer().RenderHtmlAsPdf(html);
+				PdfStream = Renderer.BinaryData;
 			}
 			catch (Exception ex)
 			{
