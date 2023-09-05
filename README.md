@@ -4,15 +4,16 @@
 ## Brackets 
 User can input multiple strings, one per line,
 and click on a button to obtain the same strings, with all the external matching round brackets
-removed. Few examples of input and output are:
-Input -> Output
-(abc) ->abc
-((abc)) -> abc
-(abc -> (abc
-() -> Empty string
-(ab) (cd) -> (ab) (cd)
-((ab) (cd)) -> (ab) (cd)
-ab(cd) -> ab(cd)
+removed. 
+Few examples of input and output are:
+> - Input -> Output
+> - (abc) ->abc
+> - ((abc)) -> abc
+> - (abc -> (abc
+> - () -> Empty string
+> - (ab) (cd) -> (ab) (cd)
+> - ((ab) (cd)) -> (ab) (cd)
+> - ab(cd) -> ab(cd)
 
 
 ### Task Analitics
@@ -53,10 +54,10 @@ if the Pair letter is the following:
 The input and output must be:
 
 > Input -> Output
-> man -> a
-> keep -> ee
-> gqwertyuioplkjhgfdsazxcvbnm:?t -> qwertyuioplkjhgfdsazxcvbnm:?
-> abcdefghijklmnopqrstuvwxyz ->  Empty string
+> - man -> a
+> - keep -> ee
+> - gqwertyuioplkjhgfdsazxcvbnm:?t -> qwertyuioplkjhgfdsazxcvbnm:?
+> - abcdefghijklmnopqrstuvwxyz ->  Empty string
 
 ### Task Analitics
 The input is a string and the output is a string too so 
@@ -128,18 +129,25 @@ I assume that for this purpose structure will be available on http protocol, but
 
 ## REQUIREMENTS 
 - docker
-- docker compose
-- 
-## SETP
+- docker compose version 3.8 or higher- 
+
+## SETP UP
 Download the repository, on project folder and run the docker compose command
 ```sh
 docker compose up -d
 ```
+
 the site will be available on http://localhost:33000 and the api on http://localhost:33500
-if you want to change the port you can change it on docker-compose.yml file and change prot on appsettings.json file on www/appsettings.json on the site folder 
+```sh
+	http://localhost:33000
+```
+```sh
+	http://localhost:33500
+```
+
 
 # NOTE
-> for the pdf generation i use a not free library that have a watermark on the pdf, if you want to remove it you need to buy a license.
+> For the pdf generation i use a not free library that have a watermark on the pdf, if you want to remove it you need to buy a license.
 > Unfortunatly this take a few minute to startup response at the first request, becouse i suppose that some license check is performed at the first request.
 
  
@@ -163,10 +171,10 @@ but if we use a simple vm on premise we need to implement the security by oursel
 # TODO 
 
 ## BACKEND
-[ ] adding test runner on docker build
-[ ] add api documentation 
+- adding test runner on docker build
+- add api documentation 
 
 ## FRONTEND
-[ ] adding unit test to UI
-[ ] adding test runner on docker build
-[ ] add tost notification or loading spinner 
+- adding unit test to UI
+- adding test runner on docker build
+- add tost notification or loading spinner 
