@@ -15,7 +15,7 @@ builder.Services.AddSingleton(configurationService);
 
 
 builder.Services.AddScoped(sp => new HttpClient 
-{ 
+{
 	BaseAddress = new Uri(configurationService.BaseAddress),
 	Timeout= TimeSpan.FromSeconds(configurationService.SecondTimeout)  
 });
