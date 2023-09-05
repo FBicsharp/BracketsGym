@@ -30,8 +30,7 @@ namespace CleaningBracketsAPI.Test
 									"STAMPA4", "STAMPA2", "STAMPA2", "STAMPA1","STAMPA","STAMP" },
 					new string[] { "      marmellata", "     marmellata", "    bellissimo", "     carciofo",
 									"     STAMPA1","    STAMPA2","   STAMPA2","  STAMPA4"," panevo2"," STAMPA",
-									" STAMP"," Ciao","CIo","CI"
-									}
+									" STAMP"," Ciao","Ciao","CIo","CI"}
 		)]
 		public void ShouldstretchStringIfLenghtIsduplicateString(string[] inputStrings, string[] expectedResults)
 		{
