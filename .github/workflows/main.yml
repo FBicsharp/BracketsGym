@@ -1,31 +1,21 @@
 name: Main
-
+run-name: ${{ github.actor }} is testing out GitHub Main Actions 🚀
 on:
   push:
     branches:
-      - main  # Change to your main branch name
-
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0  # Use the desired .NET version
-
     - name: Build and Test
       run: |
         dotnet restore
         dotnet build --configuration Release
         dotnet test --configuration Release --no-restore
-
-
-      
-
-
- 
