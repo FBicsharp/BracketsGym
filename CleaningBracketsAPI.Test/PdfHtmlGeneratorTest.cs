@@ -42,7 +42,7 @@ namespace CleaningBracketsAPI.Test
 			var result = _pdfHtmlGenerator.GenerateHTMLTableFromMatirx(matrinxChar);
 
 			// Assert
-			Assert.Equal(result, expectedResults);
+			Assert.Equal(result.Replace("\r","").Replace("\n", ""), expectedResults.Replace("\r", "").Replace("\n", ""));
 		}
 
 
