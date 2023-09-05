@@ -19,18 +19,14 @@ ab(cd) -> ab(cd)
 The input is a string, and the output is a string too so 
 the input function must accept multiple string at time for optimize the http request (time for handshaking and serializing data) , 
 in this case i covered all needs.
-for this task  I assume that the brackets is only ( and ), in case there was other brackets requiremensts i prepare the code base for handel it but i do not expose this feature via api becouse is not requested.
+For this task  I assume that the brackets is only ( and ), in case there was other brackets requiremensts i will prepare the code base for handle 
+it but i do not expose this feature via api becouse is not requested.
+
 I assume that the string lenght is short (less then 50 char) and the number of string is a single or multiple per request.
 Condisering the test case i suppose this following rules:
 	- if the brackets are not balanced the output is the same as given input 
 	- if the brackets are balanced the output is the cleaned string without any extra brackets, the extra brackets are removed untill the string is balanced.
 	- the input string must be not empty
-	
-I assuming that the authentication process is not required for this task, 
-so i do not implement it becouse is not requested, the site should be installed on premise or under other authetication or authorization stystem.
-
-
-
 
 
 ## Pairs-en
@@ -63,25 +59,26 @@ The input and output must be:
 > abcdefghijklmnopqrstuvwxyz ->  Empty string
 
 ### Task Analitics
-The input is a string, and the output is a string too so 
+The input is a string and the output is a string too so 
 the input function must accept multiple string at time for optimize the http request (time for handshaking and serializing data) , 
 in this case i covered all needs.
 
-For this task  I assume that the lettests pais should be processend only one time in a given order, so for each pairs of character given I had to check  is at the first and last character
+For this task  I assume that the character pais should be processend only one time in a given order, so for each pairs of character given I had to check  is at the first and last character
 of the string matching the pair, if yes i remove it and i check the next pair.
 Only if the first and last character of the string is matching the fist and last character of the pair i remove it and i check the next pair.
-The pairs and string is all lower case so I so i need to check the case of the character for matching and the firts character of the pairs .
+The pairs and string is all lower case so I so i need to check the case of the character for matching .
 The valid pairs at te moment is only the pais specified in the task, but if we need in the future tio change it i will prepare the code base for handel it but i do not expose this feature via api becouse is not requested.
 I assume that the string lenght is short (less then 50 char) and the number of string is a single or multiple per request.
+
 Condisering the test case i suppose this following rules:
 	- if the first and last character of the string is matching the fist and last character of the pair i remove it and i check the next pair.
 	- the check is case sensitive
 	- the input string must be not empty
 
 ## PDF generation
-Create a button that generates a PDF file containing a spiral with the strings processed by Pairs-en pages.
+Create a button that generates a PDF file containing a spiral with the  processed strings by Pairs-en pages.
 
-Condisering the test case i suppose this following rules:
+Condisering this following rules:
 	- the spirla must be quadratic 
 	- the spiral direction and start point is free 
 	- if the character has a pair of the same lenght the pair must be rounded by a dashed character
@@ -89,8 +86,8 @@ Condisering the test case i suppose this following rules:
 	- ths user do not must wait the process for download the pdf
 
 ### Task Analitics
-The input string should not exceed 45 char, becouse the longest word in the world is 45 char long https://www.dictionary.com/e/longest-words-in-the-world/.
-the spiral imposes a limit in cases where there are multiple strings of the same length, they would overlap, so to prevent this multiple PDF's could be generated 
+The input string should not exceed 45 char, becouse the longest word in the world is 45 char long [longhest world](https://www.dictionary.com/e/longest-words-in-the-world/).
+The spiral imposes a limit in cases where there are multiple strings of the same length, they would overlap, so to prevent this multiple PDF's could be generated 
 by dividing the strings (but the information would not be in a single spiral). Therefore, in cases when there are multiple strings of the same length, 
 they must be processed by changing their length (adding extra space characters at the beginning) to make them appear graphically as a spiral. 
 The string cannot be empty."
@@ -109,16 +106,22 @@ so i do not implement it becouse is not requested, the site should be installed 
 
 ### FONTEND:
 Web page is  builded with blazor web assembly with NET 6.0 and could be installed as PWA (progressive web application), 
-the site running as docker container ,in this way we have the same code languages for the frontend and backend, and I chose last LTS support version of NET for have the best performance and security.
+the site running as docker container ,in this way we have the same code languages for the frontend and backend, and I chose last LTS support version of NET for 
+have the best performance and security.
 with his framework we reduced the http traffic as installed the pwa application directly on browser so for the next time we have less data to transfer on client.
-
 
 
 ### BACKEND:
 The api is implemented with NET 6.0 and running as docker container, the api multiple endpoint that accept a post request with a json body for the strings.
-I assume that the site and api will be available only on the same domain, so i do not implement any cors policy, but if the site and api will be on different domain we need to implement a cors policy for allow the site to call the api.
-I assume that the api will be available only on https protocol, so i do implement a http redirection to https only for the api, but if the api will be available on http protocol we need to remove this redirection.
+I suppose this endpoind,one per function:
+- /cleanbrackets
+	- accept a list of string and return a list of string
+- /cleanpairs-en
+	- accept a list of string and return a list of string
+- /topdf
+	- accept a list of string and return a file content
 
+I assume that for this purpose structure will be available on http protocol, but if the api will be available on https protocol we need to configure it.
 
 
 # HOW TO RUN 
