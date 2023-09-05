@@ -139,10 +139,10 @@ docker compose up -d
 
 the site will be available on http://localhost:33000 and the api on http://localhost:33500
 ```sh
-	http://localhost:33000
+http://localhost:33000
 ```
 ```sh
-	http://localhost:33500
+http://localhost:33500
 ```
 
 
