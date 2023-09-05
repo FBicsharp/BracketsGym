@@ -15,7 +15,6 @@ Few examples of input and output are:
 > - ((ab) (cd)) -> (ab) (cd)
 > - ab(cd) -> ab(cd)
 
-
 ### Task Analitics
 The input is a string, and the output is a string too so 
 the input function must accept multiple string at time for optimize the http request (time for handshaking and serializing data) , 
