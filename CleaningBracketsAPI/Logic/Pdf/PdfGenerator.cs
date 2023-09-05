@@ -30,7 +30,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			var PdfStream = new byte[0];
 			try
 			{
-				ResizeEquelsStingLenght(ref inputString);
+				ResizeEqualStringLengths(ref inputString);
 				var longhestString = inputString.Max(x => x.Length);
 
 				_stringMapsGenerator.Initialize(longhestString, longhestString);
@@ -59,38 +59,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 		/// <summary>
 		/// Modify the length of strings by adding a space character to strings with equal lengths.
 		/// </summary>
-		/// <param name="inputStrings"></param>		
-		public void ResizeEquelsStingLenght(ref List<string> inputStrings)
-		{
-			if (inputStrings == null || inputStrings.Count <= 1)
-			{
-				// Non c'è nulla da fare se la lista è nulla o ha meno di due stringhe
-				return;
-			}
-
-			// Ordina la lista per lunghezza in modo crescente
-			inputStrings = inputStrings.OrderBy(x => x.Length).ToList();
-
-			bool hasEqualLengths = true;
-
-			while (hasEqualLengths)
-			{
-				hasEqualLengths = false;
-
-				for (int i = 0; i < inputStrings.Count - 1; i++)
-				{
-					if (inputStrings[i].Length == inputStrings[i + 1].Length)
-					{
-						inputStrings[i + 1] = " " + inputStrings[i + 1];
-						hasEqualLengths = true;
-					}
-				}
-			}
-
-			// Ordina le stringhe per lunghezza in modo decrescente
-			inputStrings = inputStrings.OrderByDescending(x => x.Length).ToList();
-		}
-
+		/// <param name="inputStrings"></param>
 		public void ResizeEqualStringLengths(ref List<string> inputStrings)
 		{
 			// Ordina la lista in modo crescente per lunghezza
