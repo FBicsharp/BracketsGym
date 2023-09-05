@@ -1,19 +1,30 @@
-name: Main test
+name: Main
 
 on:
   push:
     branches:
-     -'master'
-  pull_request:    
-    branches:
-       -'master'
+      - main  # Change to your main branch name
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: build step      
-        run: echo "build step"
-    
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0  # Use the desired .NET version
+
+    - name: Build and Test
+      run: |
+        dotnet restore
+        dotnet build --configuration Release
+        dotnet test --configuration Release --no-restore
+
+
       
 
 
