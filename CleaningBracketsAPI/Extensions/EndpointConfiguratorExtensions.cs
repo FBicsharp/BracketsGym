@@ -32,9 +32,9 @@ namespace CleaningBracketsAPI.Extensions
 			{
 				var pdfGenerator = context.RequestServices.GetRequiredService<IPdfGenerator>();
 				var PdfStream = await pdfGenerator.GeneratePdfAndRetriveByteAsync(inputString);
-				var filename = "TextPDF.pdf";
+				var filename = "file.pdf";
 				if (PdfStream.Length == 0 )
-					return Results.StatusCode(500);
+					return Results.StatusCode(204);
 				return Results.File(PdfStream, "application/pdf", filename);
 
 			});

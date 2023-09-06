@@ -1,5 +1,6 @@
 ﻿using CleaningBracketsAPI.Logic;
 using CleaningBracketsAPI.Logic.Pdf;
+using Wkhtmltopdf.NetCore;
 
 namespace CleaningBracketsAPI.Extensions
 {
@@ -18,7 +19,7 @@ namespace CleaningBracketsAPI.Extensions
 			services.AddTransient<IPairsEnCleaner,PairsEnCleaner>();
 			services.AddTransient<IStringMapsGenerator, StringMapsGenerator>();
 			services.AddTransient<IPdfGenerator,PdfGenerator>();
-
+			//services.AddWkhtmltopdf();
 			services.AddSingleton<IPdfHtmlGenerator, PdfHtmlGenerator>();
 			
 			return services;
