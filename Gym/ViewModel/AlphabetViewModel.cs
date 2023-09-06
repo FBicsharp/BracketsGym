@@ -47,12 +47,12 @@ namespace Gym.ViewModel
 
 		public async Task GeneratePDFAsync()
 		{
-
-            if (StringsList.Count==0)
+			if (StringsList.Count==0)
             {
                 _toastService.ShowWarning("No data to generate PDF");
                 return;
             }
+			_toastService.ShowInfo($"PDF generation triggered,pleas wait...");
 			StringsListResponse = await _alphabethStringService.GetAlphabethStringAsync(StringsList);
 			var base64string = await _alphabethStringService.GeneratePDFAsync(StringsListResponse);
             if (base64string.Count()==0 )
