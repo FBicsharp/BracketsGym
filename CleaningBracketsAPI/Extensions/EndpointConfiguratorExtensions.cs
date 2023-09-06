@@ -1,8 +1,5 @@
 ﻿using CleaningBracketsAPI.Logic;
 using CleaningBracketsAPI.Logic.Pdf;
-using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CleaningBracketsAPI.Extensions
 {

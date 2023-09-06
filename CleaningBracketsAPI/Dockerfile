@@ -14,7 +14,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /App
 COPY --from=build-env /App/out .
 RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev
-RUN chmod 755 /App
+RUN chmod 755 /App/
 ENTRYPOINT ["dotnet","CleaningBracketsAPI.dll"]
 
 # docker build -t fbicsharp/cleaningbracketsapi:V0.1 .
