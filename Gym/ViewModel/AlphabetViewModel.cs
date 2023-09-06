@@ -54,7 +54,7 @@ namespace Gym.ViewModel
                 return;
             }
 			StringsListResponse = await _alphabethStringService.GetAlphabethStringAsync(StringsList);
-			var base64string = await _alphabethStringService.GeneratePDFAsync(StringsList);
+			var base64string = await _alphabethStringService.GeneratePDFAsync(StringsListResponse);
             if (base64string.Count()==0 )
 			{
 				_toastService.ShowError("PDF not generated");
