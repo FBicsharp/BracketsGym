@@ -52,7 +52,7 @@ namespace Gym.ViewModel
                 _toastService.ShowWarning("No data to generate PDF");
                 return;
             }
-			_toastService.ShowInfo($"PDF generation triggered,pleas wait...");
+			_toastService.ShowInfo($"PDF generation triggered,please wait...");
 			StringsListResponse = await _alphabethStringService.GetAlphabethStringAsync(StringsList);
 			var base64string = await _alphabethStringService.GeneratePDFAsync(StringsListResponse);
             if (base64string.Count()==0 )
