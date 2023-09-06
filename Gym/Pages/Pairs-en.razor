@@ -1,6 +1,5 @@
 ﻿@page "/pairs-en"
 @inject IAlphabethViewModel mvvm
-@inject IJSRuntime JS
 <PageTitle>pairs-en</PageTitle>
 
 <h1>CLEANING ALPHABETH</h1>
@@ -16,7 +15,7 @@
 			</input>
 		</div>
 		<div class="col-auto">
-			<button class="btn btn-primary oi oi-plus " @onclick="mvvm.AddAlphabethString">Add</button>
+			<button class="btn btn-primary oi oi-plus " @onclick="mvvm.AddAlphabethStringAsync">Add</button>
 			<button class="btn btn-success oi oi-loop-circular " @onclick="mvvm.ProcessAlphabethStringAsync">Process</button>
 			<button class="btn btn-danger oi oi-trash" @onclick="mvvm.ClearAll">Clear</button>
 			<button class="btn btn-warning oi oi-file " @onclick="mvvm.GeneratePDFAsync">PDF</button>
@@ -54,14 +53,13 @@
 	protected override void OnInitialized()
 	{
 		mvvm.StateHasChenged = StateHasChanged;
-		mvvm.JS = JS;
 		base.OnInitialized();
 	}
 	public void Enter(KeyboardEventArgs e)
 	{
 		if (e.Code == "Enter" || e.Code == "NumpadEnter")
 		{
-			mvvm.AddAlphabethString();
+			mvvm.AddAlphabethStringAsync();
 		}
 	}
 

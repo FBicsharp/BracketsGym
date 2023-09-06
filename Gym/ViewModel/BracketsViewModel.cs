@@ -1,5 +1,6 @@
 ﻿using Blazored.Toast.Services;
 using Gym.Service;
+using Microsoft.JSInterop;
 
 namespace Gym.ViewModel
 {
@@ -7,19 +8,21 @@ namespace Gym.ViewModel
 	{
 		private readonly IBracketsStringService _bracketsStringService;
 		private readonly IToastService _toastService;
+		private readonly IJSRuntime _jSRuntime;
 
 		public string CurrentString { get; set; }
 
 		private List<string> StringsList { get; set; }
 		private List<string> StringsListResponse { get; set; }
-        public Action StateHasChenged { get; set; }
-        public BracketsViewModel(IBracketsStringService bracketsStringService, IToastService toastService)
+        public Action StateHasChenged { get; set; }= () => { };
+        public BracketsViewModel(IBracketsStringService bracketsStringService, IToastService toastService, IJSRuntime jSRuntime)
         {
             StringsList = new List<string>();
 			StringsListResponse = new List<string>();
 			CurrentString = string.Empty;
             _bracketsStringService = bracketsStringService;
 			_toastService = toastService;
+			_jSRuntime = jSRuntime;
 		}
 
         public async Task AddBracketsStringAsync()
