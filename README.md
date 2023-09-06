@@ -133,6 +133,12 @@ I assume that for this purpose structure will be available on http protocol, but
 ## SETP UP
 Download the repository, on project folder and run the docker compose command
 ```sh
+git clone https://github.com/FBicsharp/BracketsGym.git
+```
+```sh
+cd BracketsGym
+```
+```sh
 docker compose up -d
 ```
 
