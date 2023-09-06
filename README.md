@@ -1,4 +1,4 @@
-﻿[![Main test](https://github.com/FBicsharp/BracketsGym/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/FBicsharp/BracketsGym/actions/workflows/main.yml) 
+﻿[![Test Build](https://github.com/FBicsharp/BracketsGym/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/FBicsharp/BracketsGym/actions/workflows/main.yml) 
 # CLEANING 
 
 ## Brackets 
