@@ -39,6 +39,7 @@ namespace Gym.Service
             {
 				_logger.LogError($"Error in GetBracketsStringAsync: {ex}");
             }
+            result ??= new List<string>();
             return result;
         }
 

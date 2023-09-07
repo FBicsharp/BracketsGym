@@ -5,6 +5,8 @@
 //using System.Drawing.Printing;
 //using WkHtmlToPdfDotNet;
 
+using Wkhtmltopdf.NetCore;
+
 namespace CleaningBracketsAPI.Logic.Pdf
 {
 	public class PdfGenerator : IPdfGenerator
@@ -13,13 +15,15 @@ namespace CleaningBracketsAPI.Logic.Pdf
 		private readonly IHttpContextAccessor _context;
 		private readonly IPdfHtmlGenerator _htmlGenerator;
 		private readonly IStringMapsGenerator _stringMapsGenerator;
+		private readonly IGeneratePdf _generatePdf;
 
-		public PdfGenerator(ILogger<PdfGenerator> logger, IHttpContextAccessor context, IPdfHtmlGenerator htmlGenerator, IStringMapsGenerator stringMapsGenerator)
+		public PdfGenerator(ILogger<PdfGenerator> logger, IHttpContextAccessor context, IPdfHtmlGenerator htmlGenerator, IStringMapsGenerator stringMapsGenerator/*, IGeneratePdf generatePdf*/)
 		{
 			_logger = logger;
 			_context = context;
 			_htmlGenerator = htmlGenerator;
 			_stringMapsGenerator = stringMapsGenerator;
+			/*_generatePdf = generatePdf;*/
 		}
 
 		public byte[] GeneratePdfAndRetriveByte(List<string> inputString)
@@ -28,23 +32,21 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			var ipAddress = _context.HttpContext?.Connection?.RemoteIpAddress;
 			_logger.LogInformation($"Request to endpoint {endpoint} from IP {ipAddress}");
 			var PdfStream = new byte[0];
+			if (inputString.Count()==0)
+				return PdfStream;
 			try
 			{
+				_logger.LogDebug("Process string list");
 				ResizeEqualStringLengths(ref inputString);
 				var longhestString = inputString.Max(x => x.Length);
-
+				_logger.LogInformation("Map list for graphic...");
 				_stringMapsGenerator.Initialize(longhestString, longhestString);
 				var html = _htmlGenerator.GenerateHTMLTableFromMatirx(_stringMapsGenerator.Generate(inputString));
-				//var htmlToPdf = new SelectPdf.HtmlToPdf();
-				//htmlToPdf.Options.PdfPageSize = SelectPdf.PdfPageSize.A4;
-				//var pdf = htmlToPdf.ConvertHtmlString(html);
-				//PdfStream = pdf.Save();
-				//pdf.Close();
-
-
-
+				_logger.LogInformation("Generate PDF...");
 				var Renderer = new IronPdf.ChromePdfRenderer().RenderHtmlAsPdf(html);
 				PdfStream = Renderer.BinaryData;
+				_logger.LogInformation("PDF generated");
+				//PdfStream = _generatePdf.GetPDF(html);
 			}
 			catch (Exception ex)
 			{

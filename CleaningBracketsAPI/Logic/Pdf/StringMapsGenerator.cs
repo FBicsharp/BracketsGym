@@ -108,7 +108,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 					var nextStringLength = orderedInput[i + 1].Trim().Length;
 					isRounded = currentStringLength == nextStringLength;
 				}
-				else if (i == numRows - 1)
+				else if (i == numRows - 1 && i>0)
 				{
 					var prevStringLength = orderedInput[i - 1].Trim().Length;
 					isRounded = currentStringLength == prevStringLength;

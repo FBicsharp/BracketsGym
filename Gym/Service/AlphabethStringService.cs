@@ -35,6 +35,7 @@ namespace Gym.Service
             {
 				_logger.LogError($"Error in {nameof(GetAlphabethStringAsync)}: {ex}");
             }
+			result ??= new List<string>();
             return result;
         }
 

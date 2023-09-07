@@ -42,7 +42,25 @@ namespace CleaningBracketsAPI.Test
 			var result = _pdfHtmlGenerator.GenerateHTMLTableFromMatirx(matrinxChar);
 
 			// Assert
-			Assert.Equal(result, expectedResults);
+			Assert.Equal(result.Replace("\r","").Replace("\n", ""), expectedResults.Replace("\r", "").Replace("\n", ""));
+		}
+
+		[Fact]
+		public void should_return_html_content_for_PDFWithSingleLetter()
+		{
+			// Arrange
+			//is allready done in constructor
+			//Act			
+			CharMap[,] matrinxChar = new CharMap[,]
+			{
+				{ new CharMap('A', true, RoundedType.None, 0)},
+			};
+			string expectedResults = "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n<style>\r\ntable { border-collapse: collapse;\r\n }\r\n\r\ntd {\r\nwidth: 30px;\r\nheight: 30px;\r\ntext-align: center;\r\nvertical-align: middle;\r\ntransform-origin: center center;\r\n \r\npadding: 7px 7px 7px 7px;\r\n}\r\n\r\n.round-none-0 {\r\n border-style: none none none none;\r\n}\r\n\r\n.round-starting-0 {\r\n border-style: dashed none dashed dashed  ;\r\n}\r\n\r\n.round-central-0 {\r\n border-style: dashed none dashed none; \r\n}\r\n\r\n.round-ending-0 {\r\n border-style: dashed dashed dashed none; \r\n}\r\n\r\n.round-none-90 {\r\n border-style: none none none none;\r\n}\r\n\r\n.round-starting-90 {\r\n border-style: dashed dashed none dashed;\r\n}\r\n\r\n.round-central-90 {\r\n border-style: none dashed none dashed ; \r\n}\r\n\r\n.round-ending-90 {\r\n border-style: none dashed dashed dashed; \r\n}\r\n\r\n.round-none-180 {\r\n border-style: none none none none;\r\n}\r\n\r\n.round-starting-180 {\r\n border-style: dashed dashed dashed none;\r\n}\r\n\r\n.round-central-180 {\r\n border-style: dashed none dashed none; \r\n}\r\n\r\n.round-ending-180 {\r\n border-style: dashed none dashed dashed; \r\n}\r\n\r\n.round-none-270 {\r\n border-style: none none none none;\r\n}\r\n\r\n.round-starting-270 {\r\n border-style: none dashed dashed dashed;\r\n}\r\n\r\n.round-central-270 {\r\n border-style: none dashed none dashed; \r\n}\r\n\r\n.round-ending-270{\r\n border-style: dashed dashed none dashed; \r\n}\r\n\r\n.rotate-90 {\r\ntransform: rotate(90deg);\r\n}\r\n\r\n.rotate-180 {\r\ntransform: rotate(180deg);\r\n}\r\n\r\n.rotate-270 {\r\ntransform: rotate(270deg);\r\n}\r\n\r\n.rounded {\r\nborder-style: dashed none dashed none;\r\n}\r\n\r\nbody { font-family: Verdana, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n    height: 100%;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.center-container {\r\n    text-align: center;\r\n}\r\n</style>\r\n</head>\r\n<body>\r\n<div class=\"center-container\">\r\n<table>\r\n<tr>\r\n<td class=\" round-none-0 \" >A</td></tr>\r\n</table>\r\n<div/>\r\n</body>\r\n</html>\r\n\r\n";
+
+			var result = _pdfHtmlGenerator.GenerateHTMLTableFromMatirx(matrinxChar);
+
+			// Assert
+			Assert.Equal(result.Replace("\r", "").Replace("\n", ""), expectedResults.Replace("\r", "").Replace("\n", ""));
 		}
 
 

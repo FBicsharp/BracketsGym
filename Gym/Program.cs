@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using Gym;
 using Gym.Service;
 using Gym.ViewModel;
@@ -23,5 +24,6 @@ builder.Services.AddScoped<IAlphabethStringService, AlphabethStringService>();
 builder.Services.AddScoped<IBracketsStringService, BracketsStringService>();
 builder.Services.AddScoped<IAlphabethViewModel,AlphabethViewModel>();
 builder.Services.AddScoped<IBracketsViewModel, BracketsViewModel>();
+builder.Services.AddBlazoredToast();
 
 await builder.Build().RunAsync();

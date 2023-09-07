@@ -6,8 +6,7 @@ namespace Gym.ViewModel
     {
 		string CurrentString { get; set; }
 		Action StateHasChenged { get; set; }
-		IJSRuntime JS { get; set; }
-		void AddAlphabethString();
+		Task AddAlphabethStringAsync();
         Task ProcessAlphabethStringAsync();
         List<string> GetAlphabethRequestString();
         List<string> GetAlphabethResponseString();

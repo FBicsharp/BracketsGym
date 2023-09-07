@@ -1,4 +1,4 @@
-﻿
+﻿[![Test Build](https://github.com/FBicsharp/BracketsGym/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/FBicsharp/BracketsGym/actions/workflows/main.yml) 
 # CLEANING 
 
 ## Brackets 
@@ -14,7 +14,6 @@ Few examples of input and output are:
 > - (ab) (cd) -> (ab) (cd)
 > - ((ab) (cd)) -> (ab) (cd)
 > - ab(cd) -> ab(cd)
-
 
 ### Task Analitics
 The input is a string, and the output is a string too so 
@@ -134,15 +133,21 @@ I assume that for this purpose structure will be available on http protocol, but
 ## SETP UP
 Download the repository, on project folder and run the docker compose command
 ```sh
+git clone https://github.com/FBicsharp/BracketsGym.git
+```
+```sh
+cd BracketsGym
+```
+```sh
 docker compose up -d
 ```
 
 the site will be available on http://localhost:33000 and the api on http://localhost:33500
 ```sh
-	http://localhost:33000
+http://localhost:33000
 ```
 ```sh
-	http://localhost:33500
+http://localhost:33500
 ```
 
 

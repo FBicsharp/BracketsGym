@@ -1,25 +1,33 @@
-﻿using Gym.Service;
+﻿using Blazored.Toast.Services;
+using Gym.Service;
+using Microsoft.JSInterop;
 
 namespace Gym.ViewModel
 {
     public class BracketsViewModel : IBracketsViewModel
 	{
 		private readonly IBracketsStringService _bracketsStringService;
-        public string CurrentString { get; set; }
+		private readonly IToastService _toastService;
+		private readonly IJSRuntime _jSRuntime;
+
+		public string CurrentString { get; set; }
 
 		private List<string> StringsList { get; set; }
 		private List<string> StringsListResponse { get; set; }
-        public Action StateHasChenged { get; set; }
-        public BracketsViewModel(IBracketsStringService bracketsStringService)
+        public Action StateHasChenged { get; set; }= () => { };
+        public BracketsViewModel(IBracketsStringService bracketsStringService, IToastService toastService, IJSRuntime jSRuntime)
         {
             StringsList = new List<string>();
 			StringsListResponse = new List<string>();
 			CurrentString = string.Empty;
             _bracketsStringService = bracketsStringService;
+			_toastService = toastService;
+			_jSRuntime = jSRuntime;
 		}
 
         public async Task AddBracketsStringAsync()
         {
+			_toastService.ShowInfo($"Adding new item {CurrentString.Trim()}...");
 			if (string.IsNullOrEmpty(CurrentString.Trim()))
 				return;
 			StringsList.Add(CurrentString);
@@ -28,11 +36,13 @@ namespace Gym.ViewModel
         }
         public async Task ProcessBracketsStringAsync()
         {
-            StringsListResponse = await _bracketsStringService.GetBracketsStringAsync(StringsList);            
+			_toastService.ShowInfo("Processing...");
+			StringsListResponse = await _bracketsStringService.GetBracketsStringAsync(StringsList);            
             StateHasChenged?.Invoke();
         }
 		public void ClearAll()
 		{
+			_toastService.ShowInfo("Clearing...");
 			StringsList.Clear();
 			StringsListResponse.Clear();
 			StateHasChenged?.Invoke();
