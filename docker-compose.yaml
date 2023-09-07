@@ -6,6 +6,11 @@ services:
         container_name: string-cleaner-app-container
         ports:
             - "33000:80"            
+            - "33001:443"            
+        environment:
+            ASPNETCORE_URLS: "https://+;http://+"
+            ASPNETCORE_HTTPS_PORT: "33001"
+            ASPNETCORE_ENVIRONMENT: Production
         depends_on:
             - stringcleanerapi            
 

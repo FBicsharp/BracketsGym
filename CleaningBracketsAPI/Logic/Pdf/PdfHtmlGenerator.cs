@@ -7,8 +7,10 @@ namespace CleaningBracketsAPI.Logic.Pdf
     public class PdfHtmlGenerator : IPdfHtmlGenerator
     {
         private readonly ILogger<PdfHtmlGenerator> logger;
+		const string CssClass = "table { border-collapse: collapse;\r\n }\r\n\r\ntd {\r\nwidth: 30px;\r\nheight: 30px;\r\ntext-align: center;\r\nvertical-align: middle;\r\ntransform-origin: center center;\r\n \r\npadding: 7px 7px 7px 7px;\r\n}\r\n\r\n.round-none-0 \r\n.round-none-90\r\n.round-none-180\r\n.round-none-270 \r\n{\r\n  border: none;\r\n}\r\n\r\n\r\n.round-starting-0 {\r\n  border-top:1px dashed;\r\n  border-right:1px none;\r\n  border-bottom:1px dashed;\r\n  border-left:1px dashed;\r\n}\r\n\r\n.round-central-0 {\r\n  border-top:1px dashed;\r\n  border-right:1px none;\r\n  border-bottom:1px dashed;\r\n  border-left:1px none;\r\n \r\n}\r\n\r\n.round-ending-0 {\r\n  border-top:1px dashed;\r\n  border-right:1px dashed;\r\n  border-bottom:1px dashed;\r\n  border-left:1px none;\r\n }\r\n\r\n\r\n.round-starting-90 {\r\n  border-top:1px dashed;\r\n  border-right:1px dashed;\r\n  border-bottom:1px none;\r\n  border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-central-90 {\r\n  border-top:1px none;\r\n  border-right:1px dashed;\r\n  border-bottom:1px none;\r\n  border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-ending-90 {\r\n  border-top:1px none;\r\n  border-right:1px dashed;\r\n  border-bottom:1px dashed;\r\n  border-left:1px dashed;\r\n \r\n} \r\n\r\n.round-starting-180 {\r\n  border-top:1px dashed;\r\n  border-right:1px dashed;\r\n  border-bottom:1px dashed;\r\n  border-left:1px none;\r\n \r\n}\r\n\r\n.round-central-180 {\r\n  border-top:1px dashed;\r\n  border-right:1px none;\r\n  border-bottom:1px dashed;\r\n  border-left:1px none;\r\n \r\n}\r\n\r\n.round-ending-180 {\r\n  border-top:1px dashed;\r\n  border-right:1px none;\r\n  border-bottom:1px dashed;\r\n  border-left:1px dashed;\r\n \r\n}\r\n\r\n\r\n.round-starting-270 {\r\n  border-top:1px none;\r\n  border-right:1px dashed;\r\n  border-bottom:1px dashed;\r\n  border-left:1px dashed; \r\n}\r\n\r\n.round-central-270 {\r\n  border-top:1px none;\r\n  border-right:1px dashed;\r\n  border-bottom:1px none;\r\n  border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-ending-270{\r\n  border-top:1px dashed;\r\n  border-right:1px dashed;\r\n  border-bottom:1px none;\r\n  border-left:1px dashed;\r\n\r\n}\r\n\r\n.rotate-90 {\r\n  rotate:90deg;\r\n}\r\n\r\n.rotate-180 {\r\n  rotate:180deg;\r\n}\r\n\r\n.rotate-270 {\r\n  rotate:270deg;\r\n}\r\n\r\n\r\nbody { font-family: Verdana, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n    height: 100%;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.center-container {\r\n    text-align: center;\r\n}";
+			//"table { border-collapse: collapse;\r\n }\r\n\r\ntd {\r\nwidth: 30px;\r\nheight: 30px;\r\ntext-align: center;\r\nvertical-align: middle;\r\ntransform-origin: center center;\r\n \r\npadding: 7px 7px 7px 7px;\r\n}\r\n\r\n.round-none-0 {\r\n  border: none;\r\n}\r\n\r\n\r\n.round-starting-0 {\r\n  border-top:1px dashed;\r\n    border-right:1px none;\r\n    border-bottom:1px dashed;\r\n    border-left:1px dashed;\r\n }\r\n\r\n.round-central-0 {\r\n  border-top:1px dashed;\r\n    border-right:1px none;\r\n    border-bottom:1px dashed;\r\n    border-left:1px none;\r\n \r\n}\r\n\r\n.round-ending-0 {\r\n  border-top:1px dashed;\r\n    border-right:1px dashed;\r\n    border-bottom:1px dashed;\r\n    border-left:1px none;\r\n }\r\n\r\n.round-none-90 {\r\n  border: none; \r\n}\r\n\r\n.round-starting-90 {\r\n  border-top:1px dashed;\r\n    border-right:1px dashed;\r\n    border-bottom:1px none;\r\n    border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-central-90 {\r\n  border-top:1px none;\r\n    border-right:1px dashed;\r\n    border-bottom:1px none;\r\n    border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-ending-90 {\r\n  border-top:1px none;\r\n    border-right:1px dashed;\r\n    border-bottom:1px dashed;\r\n    border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-none-180 {\r\n  border-top:1px none;\r\n  border-right:1px none;\r\n  border-bottom:1px none;\r\n  border-left:1px none;\r\n}\r\n\r\n.round-starting-180 {\r\n  border-top:1px dashed;\r\n  border-right:1px dashed;\r\n  border-bottom:1px dashed;\r\n  border-left:1px none;\r\n \r\n}\r\n\r\n.round-central-180 {\r\n  border-top:1px dashed;\r\n  border-right:1px none;\r\n  border-bottom:1px dashed;\r\n  border-left:1px none;\r\n \r\n}\r\n\r\n.round-ending-180 {\r\n  border-top:1px dashed;\r\n  border-right:1px none;\r\n  border-bottom:1px dashed;\r\n  border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-none-270 {\r\n  border: none;\r\n}\r\n\r\n.round-starting-270 {\r\n  border-top:1px none;\r\n  border-right:1px dashed;\r\n  border-bottom:1px dashed;\r\n  border-left:1px dashed; \r\n}\r\n\r\n.round-central-270 {\r\n  border-top:1px none;\r\n  border-right:1px dashed;\r\n  border-bottom:1px none;\r\n  border-left:1px dashed;\r\n \r\n}\r\n\r\n.round-ending-270{\r\n  border-top:1px dashed;\r\n  border-right:1px dashed;\r\n  border-bottom:1px none;\r\n  border-left:1px dashed;\r\n\r\n}\r\n\r\n.rotate-90 {\r\ntransform: rotate(90deg);\r\n}\r\n\r\n.rotate-180 {\r\ntransform: rotate(180deg);\r\n}\r\n\r\n.rotate-270 {\r\ntransform: rotate(270deg);\r\n}\r\n\r\n\r\nbody { font-family: Verdana, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n    height: 100%;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.center-container {\r\n    text-align: center;\r\n}";
 
-        public PdfHtmlGenerator(ILogger<PdfHtmlGenerator> logger)
+		public PdfHtmlGenerator(ILogger<PdfHtmlGenerator> logger)
         {
             this.logger = logger;
         }
@@ -22,6 +24,8 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			htmlTable.AppendLine("<html>");
 			htmlTable.AppendLine("<head>");
 			htmlTable.AppendLine("<style>");
+			htmlTable.AppendLine(CssClass);
+			/*
 			htmlTable.AppendLine("table { border-collapse: collapse;\r\n }\r\n");
 			htmlTable.AppendLine("td {\r\nwidth: 30px;\r\nheight: 30px;\r\ntext-align: center;\r\nvertical-align: middle;\r\ntransform-origin: center center;\r\n \r\npadding: 7px 7px 7px 7px;\r\n}\r\n");
 
@@ -50,6 +54,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			htmlTable.AppendLine(".rotate-270 {\r\ntransform: rotate(270deg);\r\n}\r\n");
 			htmlTable.AppendLine(".rounded {\r\nborder-style: dashed none dashed none;\r\n}\r\n");
 			htmlTable.AppendLine("body { font-family: Verdana, sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n    height: 100%;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.center-container {\r\n    text-align: center;\r\n}");
+			*/
 			htmlTable.AppendLine("</style>");
 			htmlTable.AppendLine("</head>");
 			htmlTable.AppendLine("<body>");
@@ -82,8 +87,7 @@ namespace CleaningBracketsAPI.Logic.Pdf
 			htmlTable.AppendLine("</html>");
 
 			return htmlTable.ToString();
-		}
-
+		}		
 	}
 }
 
